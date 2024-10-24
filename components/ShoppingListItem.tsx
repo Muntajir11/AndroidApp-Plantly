@@ -3,8 +3,6 @@ import { theme } from "../theme";
 
 type Props = {
   name: string;
-
-
 };
 
 export function ShoppingListItem({ name }: Props) {
@@ -32,14 +30,11 @@ export function ShoppingListItem({ name }: Props) {
         activeOpacity={0.8}
       >
         <Text style={styles.buttonText}>Delete</Text>
-
       </TouchableOpacity>
     </View>
   );
-
-       
 }
-   
+
 const styles = StyleSheet.create({
   itemContainer: {
     paddingVertical: 16,
