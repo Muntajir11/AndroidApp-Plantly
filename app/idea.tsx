@@ -1,4 +1,3 @@
-
 import { Text, View, StyleSheet } from "react-native";
 
 export default function IdeaScreen() {
@@ -19,4 +18,3 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
 });
-
