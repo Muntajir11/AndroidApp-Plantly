@@ -18,7 +18,7 @@ export default function Layout() {
                   <MaterialIcons
                     name="history"
                     size={32}
-                    color={theme.colorGrey}
+                    color={theme.colorGray}
                   />
                 </Pressable>
               </Link>

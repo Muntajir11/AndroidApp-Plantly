@@ -14,9 +14,16 @@ import * as Haptics from "expo-haptics";
 
 const storageKey = "shopping-list";
 
+type ShoppingListItemType = {
+  id: string;
+  name: string;
+  completedAtTimestamp?: number;
+  lastUpdatedTimestamp: number;
+};
+
 export default function App() {
-  const [shoppingList, setShoppingList] = useState([]);
-  const [value, setValue] = useState();
+  const [shoppingList, setShoppingList] = useState<ShoppingListItemType[]>([]);
+  const [value, setValue] = useState<string>();
 
   useEffect(() => {
     const fetchInitial = async () => {
@@ -47,14 +54,14 @@ export default function App() {
     }
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     const newShoppingList = shoppingList.filter((item) => item.id !== id);
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setShoppingList(newShoppingList);
   };
 
-  const handleToggleComplete = (id) => {
+  const handleToggleComplete = (id: string) => {
     const newShoppingList = shoppingList.map((item) => {
       if (item.id === id) {
         if (item.completedAtTimestamp) {
@@ -111,7 +118,7 @@ export default function App() {
   );
 }
 
-function orderShoppingList(shoppingList) {
+function orderShoppingList(shoppingList: ShoppingListItemType[]) {
   return shoppingList.sort((item1, item2) => {
     if (item1.completedAtTimestamp && item2.completedAtTimestamp) {
       return item2.completedAtTimestamp - item1.completedAtTimestamp;

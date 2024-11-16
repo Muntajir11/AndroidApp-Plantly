@@ -1,4 +1,3 @@
-/*global setInterval, clearInterval */
 import {
   Text,
   View,
@@ -22,10 +21,21 @@ const frequency = 14 * 24 * 60 * 60 * 1000;
 
 export const countdownStorageKey = "taskly-countdown";
 
+export type PersistedCountdownState = {
+  currentNotificationId: string | undefined;
+  completedAtTimestamps: number[];
+};
+
+type CountdownStatus = {
+  isOverdue: boolean;
+  distance: ReturnType<typeof intervalToDuration>;
+};
+
 export default function CounterScreen() {
-  const confettiRef = useRef();
-  const [countdownState, setCountdownState] = useState();
-  const [status, setStatus] = useState({
+  const confettiRef = useRef<any>();
+  const [countdownState, setCountdownState] =
+    useState<PersistedCountdownState>();
+  const [status, setStatus] = useState<CountdownStatus>({
     isOverdue: false,
     distance: {},
   });
@@ -63,9 +73,7 @@ export default function CounterScreen() {
 
   const scheduleNotification = async () => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    if (confettiRef && confettiRef.current && confettiRef.current.start) {
-      confettiRef.current.start();
-    }
+    confettiRef?.current?.start();
     let pushNotificationId;
     const result = await registerForPushNotificationsAsync();
     if (result === "granted") {
@@ -90,7 +98,7 @@ export default function CounterScreen() {
       );
     }
 
-    const newCountdownState = {
+    const newCountdownState: PersistedCountdownState = {
       currentNotificationId: pushNotificationId,
       completedAtTimestamps: countdownState
         ? [Date.now(), ...countdownState.completedAtTimestamps]
