@@ -11,12 +11,19 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { theme } from "../theme";
 import * as Haptics from "expo-haptics";
 
+type Props = {
+  name: string;
+  isCompleted?: boolean;
+  onDelete: () => void;
+  onToggleComplete: () => void;
+};
+
 export function ShoppingListItem({
   name,
   isCompleted,
   onDelete,
   onToggleComplete,
-}) {
+}: Props) {
   const handleDelete = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     Alert.alert(
@@ -45,7 +52,7 @@ export function ShoppingListItem({
         <Entypo
           name={isCompleted ? "check" : "circle"}
           size={24}
-          color={isCompleted ? theme.colorGrey : theme.colorCerulean}
+          color={isCompleted ? theme.colorGray : theme.colorCerulean}
         />
         <Text
           style={[
@@ -60,7 +67,7 @@ export function ShoppingListItem({
         <AntDesign
           name="closecircle"
           size={24}
-          color={isCompleted ? theme.colorGrey : theme.colorRed}
+          color={isCompleted ? theme.colorGray : theme.colorRed}
         />
       </TouchableOpacity>
     </Pressable>
@@ -88,9 +95,9 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.colorLightGrey,
   },
   completedText: {
-    color: theme.colorGrey,
+    color: theme.colorGray,
     textDecorationLine: "line-through",
-    textDecorationColor: theme.colorGrey,
+    textDecorationColor: theme.colorGray,
   },
   row: {
     flexDirection: "row",
